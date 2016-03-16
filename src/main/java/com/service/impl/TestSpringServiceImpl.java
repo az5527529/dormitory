@@ -16,7 +16,7 @@ public class TestSpringServiceImpl implements TestSpringService{
 	private SessionFactory sessionFactory;
 	public void testSpring() {
 		// TODO Auto-generated method stub
-		System.out.println("spring²âÊÔ³É¹¦");
+		System.out.println("springæµ‹è¯•");
 	}
 	
 	@Transactional
