@@ -1,0 +1,22 @@
+@CHARSET "UTF-8";
+body{
+	background-image:url(../../img/login.jpg);
+}
+#title{
+	font-size:60px;
+	margin:100px auto;
+	text-align:center;
+	color:#0000ff;
+}
+#form{
+	margin:0 auto;
+	text-align:center;
+}
+#btn{
+	margin:0 auto;
+	text-align:center;
+	padding-top:20px;
+}
+#notice{
+	color:#f00;
+}

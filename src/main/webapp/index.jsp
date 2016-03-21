@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
+<%@page import="com.entity.SysMenuGroup"%>
+<%@page import="com.entity.SysMenuItem"%>
+<%@page import="com.entity.UserInfo"%>
+<%@page import="java.util.*"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%@include file="/WEB-INF/pages/common/head.jsp"%>
 <html>
@@ -33,6 +37,16 @@
 			}
 		});
 	});
+	function logout(){
+		$.ajax({
+			type : "post",
+			url : "${ctx}/loginExt/logout.action?ids=" + Math.random(),
+			success : function(data) {
+				window.location = 'login.jsp';;
+			},
+			async : true
+		});
+	}
 </script>
 <style type="text/css">
 #menu {
@@ -64,23 +78,28 @@
 </style>
 <body class="easyui-layout">
 	<div data-options="region:'north',title:'欢迎来到宿舍管理系统',split:true"
-		style="height: 100px;"></div>
+		style="height: 100px;">
+		<b>欢迎您，${userInfo.userName}</b><br />登录时间:<%=new java.text.SimpleDateFormat("yyyy年MM月dd日 HH:MM").format(new java.util.Date()) %><br />
+		<input type="button" id="logout" value="退出" onclick="logout()">
+		</div>
 	<div data-options="region:'west',title:'系统菜单',split:true"
 		style="width: 200px;">
 		<div id="menu" class="easyui-accordion" data-options="fit:true">
-			<div title="Title1">
+			
+			<c:forEach var="group" items="${groupList}" >
+				<div title="${group.groupDesc}">
 				<ul>
-					<li><a href="#" title="${ctx}/pages/student/student.action">学生信息</a></li>
-					<li><a href="#">宿舍信息</a></li>
+					<c:forEach var="item" items="${userInfo.items}">
+						<c:if test="${item.sysMenuGroupId==group.sysMenuGroupId}">
+							<li><a href="#" title="${ctx}/${item.url}">${item.menuTitle}</a></li>
+						</c:if>
+					</c:forEach>
+					
 				</ul>
 			</div>
-			<div title="Title2">
-				<ul>
-					<li><a href="#">学生信息</a></li>
-					<li><a href="#">宿舍信息</a></li>
-				</ul>
-			</div>
-			<div title="Title3">content3</div>
+
+			</c:forEach>
+
 		</div>
 	</div>
 	<div data-options="region:'center',title:'操作页面'"

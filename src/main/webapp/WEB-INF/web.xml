@@ -50,9 +50,20 @@
 			<param-value>classpath:spring-mvc.xml</param-value>
 		</init-param>
 	</servlet>
+	<servlet>
+		<description>
+		</description>
+		<display-name>RandomCodeServlet</display-name>
+		<servlet-name>RandomCodeServlet</servlet-name>
+		<servlet-class>com.web.RandomCodeServlet</servlet-class>
+	</servlet>
 	<servlet-mapping>
 		<servlet-name>springMVC</servlet-name>
 		<url-pattern>*.action</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>RandomCodeServlet</servlet-name>
+		<url-pattern>/RandomCodeServlet</url-pattern>
 	</servlet-mapping>
   
    
