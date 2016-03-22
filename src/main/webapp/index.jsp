@@ -9,16 +9,7 @@
 <html>
 
 <script type="text/javascript">
-	function login() {
-		$.ajax({
-			type : "post",
-			url : "a/show.action?ids=" + Math.random(),
-			success : function(data) {
-				alert(data);
-			},
-			async : true
-		});
-	}
+	
 	$(function(){
 		$("a[title]").click(function(){
 			var text = $(this).text();
@@ -57,22 +48,25 @@
 	list-style: none;
 	padding: 0;
 	margin: 0;
+	
 }
 
 #menu ul li {
-	border-bottom: 1px solid red;
+	background-color: #008792;
+	padding-left:20px;
+	float:none;
 }
-
+#menu ul li:hover{
+	background-color: #00a6ac;
+}
 #menu ul li a {
 	display: block;
-	background-color: #008792;
 	color: #fff;
 	padding: 5px;
 	text-decoration: none;
 }
 
 #menu ul li a:hover {
-	background-color: #00a6ac;
 	cursor: pointer;
 }
 </style>

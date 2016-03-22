@@ -1,9 +1,11 @@
 package com.entity;
 
-// Generated 2016-3-21 15:12:52 by Hibernate Tools 3.2.2.GA
+// Generated 2016-3-22 17:34:00 by Hibernate Tools 3.2.2.GA
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -14,7 +16,7 @@ import javax.persistence.Table;
 @Table(name = "sys_menu_group", catalog = "aa")
 public class SysMenuGroup implements java.io.Serializable {
 
-	private long sysMenuGroupId;
+	private Long sysMenuGroupId;
 	private String groupDesc;
 	private String createdByUser;
 	private String updatedByUser;
@@ -22,21 +24,21 @@ public class SysMenuGroup implements java.io.Serializable {
 	public SysMenuGroup() {
 	}
 
-	public SysMenuGroup(long sysMenuGroupId, String groupDesc,
-			String createdByUser, String updatedByUser) {
-		this.sysMenuGroupId = sysMenuGroupId;
+	public SysMenuGroup(String groupDesc, String createdByUser,
+			String updatedByUser) {
 		this.groupDesc = groupDesc;
 		this.createdByUser = createdByUser;
 		this.updatedByUser = updatedByUser;
 	}
 
 	@Id
+	@GeneratedValue(strategy = IDENTITY)
 	@Column(name = "sys_menu_group_Id", unique = true, nullable = false)
-	public long getSysMenuGroupId() {
+	public Long getSysMenuGroupId() {
 		return this.sysMenuGroupId;
 	}
 
-	public void setSysMenuGroupId(long sysMenuGroupId) {
+	public void setSysMenuGroupId(Long sysMenuGroupId) {
 		this.sysMenuGroupId = sysMenuGroupId;
 	}
 

@@ -20,3 +20,6 @@ body{
 #notice{
 	color:#f00;
 }
+li{
+	float:none;
+}

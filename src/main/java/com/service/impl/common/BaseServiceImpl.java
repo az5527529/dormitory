@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.service.common.BaseService;
+import com.util.CollectionUtil;
 
 public class BaseServiceImpl<T> implements BaseService<T> {
 	private Class clazz;
@@ -40,10 +41,10 @@ public class BaseServiceImpl<T> implements BaseService<T> {
 		return (T) getSession().save(t);
 	}
 
-	public List<T> query() {
+	public List<T> query(String whereCondition,int pageStart,int pageSize) {
 		// TODO Auto-generated method stub
-		String hql = "from " + clazz.getSimpleName();
-		return getSession().createQuery(hql).list();
+		String hql = "from " + clazz.getSimpleName()+" where 1=1 "+whereCondition;
+		return getSession().createQuery(hql).setFirstResult(pageStart).setMaxResults(pageSize).list();
 	}
 
 	public void update(T t) {
@@ -54,6 +55,15 @@ public class BaseServiceImpl<T> implements BaseService<T> {
 	public void delete(T t) {
 		// TODO Auto-generated method stub
 		getSession().delete(t);
+	}
+	public long getCount(String whereCondition) {
+		// TODO Auto-generated method stub
+		String hql = "from " + clazz.getSimpleName()+" where 1=1 "+whereCondition;
+		List list = getSession().createQuery(hql).list();
+		if(!CollectionUtil.isEmptyCollection(list)){
+			return list.size();
+		}
+		return 0;
 	}
 
 }
