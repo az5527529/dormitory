@@ -28,7 +28,7 @@
 			data-options="iconCls:'icon-search'" onclick="searchStudent()"
 			plain="true"></a> 
 		<a href="#" class="easyui-linkbutton"
-			iconCls="icon-add" plain="true" id="edit" onclick="addTab('学生编辑','${ctx}/pages/student/studentEdit.action')"></a> 
+			iconCls="icon-add" plain="true"></a> 
 		<a href="#"
 			class="easyui-linkbutton" iconCls="icon-edit" plain="true"></a>
 		 <a

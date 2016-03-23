@@ -8,8 +8,10 @@ $(function(){
 	    rownumbers:true,
 	    pagePosition:"bottom",
 	    idField: 'studentId', 
-	    width: ($(window).width()),
-	    height:(($(window).height()-$("#search").height())*0.94),
+	    width: ($("#list").width()),
+	    height:$("#list").height(),
+	    fitColumns:true,
+	    toolbar:"#btn",
 	    columns:[[    
 	        {field:'studentId',title:'',hidden:true},    
 	        {field:'studentName',title:'名字',width:75},    
@@ -25,9 +27,11 @@ $(function(){
 	        {field:'buildingNo',title:'楼号',width:40},
 	        {field:'roomNo',title:'房号',width:40},
 	        {field:'createdByUser',title:'创建人',width:80},
-	        {field:'updatedByUser',title:'修改人',width:80},
+	        {field:'updatedByUser',title:'修改人'},
 	    ]]    
 	});  
+	
+
 })
 function sexFormatter(value,row,index){
 	if(value=0){

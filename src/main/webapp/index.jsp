@@ -15,7 +15,7 @@
 			var text = $(this).text();
 			var href = $(this).attr("title");
 			//1.判断是否已打开相应 的tab,有则选中，无责新建
-			if($("#tt").tabs("exists",text)){
+			/* if($("#tt").tabs("exists",text)){
 				$("#tt").tabs("select",text);
 			}else{
 				$("#tt").tabs("add",{
@@ -25,7 +25,8 @@
 					//href:href,
 					closable:true
 				});
-			}
+			} */
+			addTab(text,href);
 		});
 	});
 	function logout(){
