@@ -1,15 +1,16 @@
 package com.service.impl.common;
 
+import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
-import javax.persistence.MappedSuperclass;
+import javax.servlet.http.HttpSession;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
+import com.entity.UserInfo;
 import com.service.common.BaseService;
 import com.util.CollectionUtil;
 
@@ -65,5 +66,4 @@ public class BaseServiceImpl<T> implements BaseService<T> {
 		}
 		return 0;
 	}
-
 }

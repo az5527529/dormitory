@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserInfo {
+	
+
 	private String userCode;
 	private String userName;
 	private int buildingNo;
