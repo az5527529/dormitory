@@ -17,3 +17,8 @@
     		}
               
         }
+ 
+ function closeTab(title){
+	 var jq = top.jQuery;  
+	 jq("#tt").tabs("close",title);
+ }

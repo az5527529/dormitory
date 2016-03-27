@@ -14,7 +14,9 @@ public interface BaseService<T> {
 	
 	public long getCount(String whereCondition);
 	
-	public void update(T t);
+	public T update(T t);
 	
 	public void delete(T t);
+	
+	public int deleteById(Long id);
 }

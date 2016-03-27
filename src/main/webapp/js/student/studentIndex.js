@@ -12,6 +12,7 @@ $(function(){
 	    height:$("#list").height(),
 	    fitColumns:true,
 	    toolbar:"#btn",
+	    singleSelect:true,
 	    columns:[[    
 	        {field:'studentId',title:'',hidden:true},    
 	        {field:'studentName',title:'名字',width:75},    
@@ -47,4 +48,33 @@ function searchStudent(){
 		};
 	$('#student').datagrid("options").url=ctx+"/student/searchStudent.action?ids=" + Math.random();
 	$('#student').datagrid("load");
+}
+
+function edit(){
+	var row = $('#student').datagrid("getSelected");
+	if(row==null){
+		alert("请选择要编辑的行");
+		return false;
+	}
+	addTab('学生编辑',ctx+'/pages/student/studentEdit.action?id='+row.studentId);
+}
+function deleteStudent(){
+	var row = $('#student').datagrid("getSelected");
+	if(row==null){
+		alert("请选择要删除的行");
+		return false;
+	}
+	$.ajax({
+		type : "post",
+		dataType : 'json',
+		url : ctx+"/student/deleteById.action?ids=" + Math.random(),
+		data : {
+			id : row.studentId,
+		},
+		success : function(data) {
+			alert(data.msg);
+			$('#student').datagrid("reload");
+		},
+		async : true
+	});
 }

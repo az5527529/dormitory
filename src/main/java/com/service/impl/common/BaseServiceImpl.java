@@ -39,7 +39,8 @@ public class BaseServiceImpl<T> implements BaseService<T> {
 	@SuppressWarnings("unchecked")
 	public T save(T t) {
 		// TODO Auto-generated method stub
-		return (T) getSession().save(t);
+		 Long id = (Long) getSession().save(t);
+		 return loadById(id);
 	}
 
 	public List<T> query(String whereCondition,int pageStart,int pageSize) {
@@ -48,9 +49,10 @@ public class BaseServiceImpl<T> implements BaseService<T> {
 		return getSession().createQuery(hql).setFirstResult(pageStart).setMaxResults(pageSize).list();
 	}
 
-	public void update(T t) {
+	public T update(T t) {
 		// TODO Auto-generated method stub
 		 getSession().update(t);;
+		 return t;
 	}
 
 	public void delete(T t) {
@@ -65,5 +67,10 @@ public class BaseServiceImpl<T> implements BaseService<T> {
 			return list.size();
 		}
 		return 0;
+	}
+	public int deleteById(Long id) {
+		// TODO Auto-generated method stub
+		String sql = "delete from " + clazz.getSimpleName()+" where "+clazz.getSimpleName()+"_Id='"+id+"'";
+		return getSession().createSQLQuery(sql).executeUpdate();
 	}
 }

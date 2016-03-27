@@ -30,9 +30,9 @@
 		<a href="#" class="easyui-linkbutton"
 			iconCls="icon-add" plain="true" id="edit" onclick="addTab('学生编辑','${ctx}/pages/student/studentEdit.action')"></a> 
 		<a href="#"
-			class="easyui-linkbutton" iconCls="icon-edit" plain="true"></a>
+			class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="edit()"></a>
 		 <a
-			href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true"></a>
+			href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="deleteStudent()"></a>
 	</div>
 
 

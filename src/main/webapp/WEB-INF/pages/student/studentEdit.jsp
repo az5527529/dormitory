@@ -3,6 +3,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%@include file="/WEB-INF/pages/common/head.jsp"%>
 <html>
+
+
 <script src="${ctx}/js/student/studentEdit.js" type="text/javascript"></script>
 <body>
 
@@ -11,6 +13,8 @@
 			style="height:100%">
 			<div id="edit" style="height:90%">
 			<form id="ff" method="post">
+				<input name="studentId"
+						id="studentId" type="hidden" value='${pageContext.request.getParameter("id")}'/>
 				<ul>
 					<li><label for="studentNo">学号:</label> <input id="studentNo" name="studentNo"
 						class="easyui-validatebox" /></li>
@@ -22,7 +26,7 @@
 			<div style="clear:both"></div>
 			<div id="btn" style="height:10%">
 				<input type="button" value="保存" onclick="submit()"/>
-				<input type="button" value="取消" />
+				<input type="button" value="取消" onclick="closeTab('学生编辑')"/>
 			</div>
 		</div>
 

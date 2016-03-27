@@ -10,12 +10,12 @@ import com.service.student.StudentService;
 public class StudentServiceImpl extends BaseServiceImpl<Student> implements
 		StudentService {
 
-	public void saveOrUpdate(Student student, boolean isUpdate) {
+	public Student saveOrUpdate(Student student) {
 		// TODO Auto-generated method stub
-		if(isUpdate){
-			 this.update(student);
+		if(student.getStudentId()>0){
+			 return this.update(student);
 		}else{
-			this.save(student);
+			return this.save(student);
 		}
 	}
 

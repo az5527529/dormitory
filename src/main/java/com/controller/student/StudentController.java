@@ -26,7 +26,7 @@ public class StudentController {
 	@Resource
 	private StudentService studentService;
 	@RequestMapping(value = "/searchStudent", method = RequestMethod.POST)
-	public void login(HttpServletRequest request,
+	public void searchStudent(HttpServletRequest request,
 			HttpServletResponse response) throws IOException {
 		String whereCondition = WebUtil.getWhereCondition(request);
 		String rowsStr = request.getParameter("rows");
@@ -48,7 +48,13 @@ public class StudentController {
 	public void saveOrUpdate(HttpServletRequest request,
 			HttpServletResponse response) throws IOException {
 		JSONObject o = new JSONObject();
-		Student student = new Student();
+		Student student ;
+		String id = request.getParameter("studentId");
+		if(id!=null&&!id.equals("")){
+			student = studentService.loadById(Long.parseLong(id));
+		}else{
+			student = new Student();
+		}
 		try {
 			BeanUtils.populate(student, request.getParameterMap());
 		} catch (Exception e) {
@@ -56,9 +62,38 @@ public class StudentController {
 			e.printStackTrace();
 			o.put("errorMessage", e.getMessage());
 		} 
-		WebUtil.beforeSaveOrUpdate(request, student, Boolean.parseBoolean(request.getParameter("isUpdate")));
-		studentService.saveOrUpdate(student, Boolean.parseBoolean(request.getParameter("isUpdate")));
-		o.put("message", "保存成功");
+		WebUtil.beforeSaveOrUpdate(request, student,student.getStudentId()>0?true:false);
+		student = studentService.saveOrUpdate(student);
+		o = JSONObject.fromObject(student);
+		WebUtil.outputPage(request, response, o.toString());
+	}
+	
+	@RequestMapping(value = "/searchById", method = RequestMethod.POST)
+	public void searchById(HttpServletRequest request,
+			HttpServletResponse response) throws IOException {
+		String id = request.getParameter("id");
+		Student student = studentService.loadById(Long.parseLong(id));
+		JSONObject o = new JSONObject();
+		if(student==null){
+			o.put("errorMsg", "该学生不存在");
+		}else{
+			o = JSONObject.fromObject(student);
+		}
+		WebUtil.outputPage(request, response, o.toString());
+	}
+	
+	@RequestMapping(value = "/deleteById", method = RequestMethod.POST)
+	public void deleteById(HttpServletRequest request,
+			HttpServletResponse response) throws IOException {
+		String id = request.getParameter("id");
+		int n = studentService.deleteById(Long.parseLong(id));
+		JSONObject o = new JSONObject();
+		if(n>0){
+			o.put("msg", "删除成功");
+			
+		}else{
+			o.put("msg", "删除失败");
+		}
 		WebUtil.outputPage(request, response, o.toString());
 	}
 }
