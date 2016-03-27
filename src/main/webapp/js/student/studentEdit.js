@@ -32,11 +32,11 @@ function submit(){
 	    	
 	    },    
 	    success:function(data){    
-	        if(data.errorMessage){
+	    	var obj = JSON.parse(data);
+	        if(obj.errorMessage){
 	        	alert(data.errorMessage);
 	        }else{
 	        	alert("保存成功");
-	        	var obj = JSON.parse(data);
 	        	var $input = $("#ff :input[name]");
 	        	for(i=0;i<$input.size();i++){
 	        		name = $input[i].name;

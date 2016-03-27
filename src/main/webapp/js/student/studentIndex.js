@@ -64,17 +64,20 @@ function deleteStudent(){
 		alert("请选择要删除的行");
 		return false;
 	}
-	$.ajax({
-		type : "post",
-		dataType : 'json',
-		url : ctx+"/student/deleteById.action?ids=" + Math.random(),
-		data : {
-			id : row.studentId,
-		},
-		success : function(data) {
-			alert(data.msg);
-			$('#student').datagrid("reload");
-		},
-		async : true
-	});
+	if(window.confirm("你确定要删除吗?")){
+		$.ajax({
+			type : "post",
+			dataType : 'json',
+			url : ctx+"/student/deleteById.action?ids=" + Math.random(),
+			data : {
+				id : row.studentId,
+			},
+			success : function(data) {
+				alert(data.msg);
+				$('#student').datagrid("reload");
+			},
+			async : true
+		});
+	}
+	
 }
