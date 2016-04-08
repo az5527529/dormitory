@@ -8,6 +8,9 @@
 	type="text/css"></link>
 <script type="text/javascript">
 	function login() {
+		if(!$("#login").form("validate")){
+			return false;
+		};
 		$.ajax({
 			type : "post",
 			dataType : 'json',

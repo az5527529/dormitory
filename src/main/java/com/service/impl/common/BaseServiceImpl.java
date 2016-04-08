@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.entity.UserInfo;
 import com.service.common.BaseService;
 import com.util.CollectionUtil;
+import com.util.StringUtil;
 
 public class BaseServiceImpl<T> implements BaseService<T> {
 	private Class clazz;
@@ -43,9 +44,12 @@ public class BaseServiceImpl<T> implements BaseService<T> {
 		 return loadById(id);
 	}
 
-	public List<T> query(String whereCondition,int pageStart,int pageSize) {
+	public List<T> query(String whereCondition,int pageStart,int pageSize,String orderBy,String order) {
 		// TODO Auto-generated method stub
 		String hql = "from " + clazz.getSimpleName()+" where 1=1 "+whereCondition;
+		if(!StringUtil.isEmptyString(orderBy)){
+			hql +=" order by "+orderBy+" "+order;
+		}
 		return getSession().createQuery(hql).setFirstResult(pageStart).setMaxResults(pageSize).list();
 	}
 
@@ -70,7 +74,8 @@ public class BaseServiceImpl<T> implements BaseService<T> {
 	}
 	public int deleteById(Long id) {
 		// TODO Auto-generated method stub
-		String sql = "delete from " + clazz.getSimpleName()+" where "+clazz.getSimpleName()+"_Id='"+id+"'";
-		return getSession().createSQLQuery(sql).executeUpdate();
+		String tableName=clazz.getSimpleName().replaceFirst(clazz.getSimpleName().substring(0, 1),clazz.getSimpleName().substring(0, 1).toLowerCase());
+		String hql = "delete from " + clazz.getSimpleName()+" where "+tableName+"Id='"+id+"'";
+		return getSession().createQuery(hql).executeUpdate();
 	}
 }

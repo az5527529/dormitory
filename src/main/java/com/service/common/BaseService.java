@@ -10,7 +10,7 @@ public interface BaseService<T> {
 	
 	public T save(T t);
 	
-	public List<T> query(String whereCondition,int pageStart,int pageSize);
+	public List<T> query(String whereCondition,int pageStart,int pageSize,String orderBy, String order);
 	
 	public long getCount(String whereCondition);
 	

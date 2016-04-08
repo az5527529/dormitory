@@ -1,6 +1,6 @@
 package com.entity;
 
-// Generated 2016-3-23 17:31:53 by Hibernate Tools 3.2.2.GA
+// Generated 2016-3-28 17:15:11 by Hibernate Tools 3.2.2.GA
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -24,22 +24,24 @@ import org.hibernate.annotations.DynamicUpdate;
 public class SbBuilding implements java.io.Serializable {
 
 	private Long sbBuildingId;
-	private int buidingNo;
+	private int buildingNo;
 	private int roomNum;
 	private int roomLeft;
 	private String createdByUser;
 	private String updatedByUser;
+	private String floorNum;
 
 	public SbBuilding() {
 	}
 
-	public SbBuilding(int buidingNo, int roomNum, int roomLeft,
-			String createdByUser, String updatedByUser) {
-		this.buidingNo = buidingNo;
+	public SbBuilding(int buildingNo, int roomNum, int roomLeft,
+			String createdByUser, String updatedByUser, String floorNum) {
+		this.buildingNo = buildingNo;
 		this.roomNum = roomNum;
 		this.roomLeft = roomLeft;
 		this.createdByUser = createdByUser;
 		this.updatedByUser = updatedByUser;
+		this.floorNum = floorNum;
 	}
 
 	@Id
@@ -53,13 +55,13 @@ public class SbBuilding implements java.io.Serializable {
 		this.sbBuildingId = sbBuildingId;
 	}
 
-	@Column(name = "buiding_no", nullable = true)
-	public int getBuidingNo() {
-		return this.buidingNo;
+	@Column(name = "building_no", nullable = true)
+	public int getBuildingNo() {
+		return this.buildingNo;
 	}
 
-	public void setBuidingNo(int buidingNo) {
-		this.buidingNo = buidingNo;
+	public void setBuildingNo(int buildingNo) {
+		this.buildingNo = buildingNo;
 	}
 
 	@Column(name = "room_num", nullable = true)
@@ -96,6 +98,15 @@ public class SbBuilding implements java.io.Serializable {
 
 	public void setUpdatedByUser(String updatedByUser) {
 		this.updatedByUser = updatedByUser;
+	}
+
+	@Column(name = "floor_num", nullable = true, length = 16)
+	public String getFloorNum() {
+		return this.floorNum;
+	}
+
+	public void setFloorNum(String floorNum) {
+		this.floorNum = floorNum;
 	}
 
 }

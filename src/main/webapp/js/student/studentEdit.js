@@ -29,7 +29,7 @@ function submit(){
 	    onSubmit: function(){    
 	        // do some check    
 	        // return false to prevent submit;    
-	    	
+	    	return $('#ff').form("validate");
 	    },    
 	    success:function(data){    
 	    	var obj = JSON.parse(data);

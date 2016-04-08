@@ -17,9 +17,9 @@
 						id="studentId" type="hidden" value='${pageContext.request.getParameter("id")}'/>
 				<ul>
 					<li><label for="studentNo">学号:</label> <input id="studentNo" name="studentNo"
-						class="easyui-validatebox" /></li>
+						class="easyui-validatebox" data-options="required:true"/></li>
 					<li><label for="studentName">名字:</label> <input name="studentName"
-						id="studentName" class="easyui-validatebox" /></li>
+						id="studentName" class="easyui-validatebox" data-options="required:true"/></li>
 				</ul>
 			</form>
 			</div>

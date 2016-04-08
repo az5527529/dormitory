@@ -13,6 +13,8 @@ $(function(){
 	    fitColumns:true,
 	    toolbar:"#btn",
 	    singleSelect:true,
+	    sortName:"studentNo",
+	    sortOrder:"asc",
 	    columns:[[    
 	        {field:'studentId',title:'',hidden:true},    
 	        {field:'studentName',title:'名字',width:75},    
@@ -43,8 +45,8 @@ function sexFormatter(value,row,index){
 }
 function searchStudent(){
 	$('#student').datagrid("options").queryParams={
-		studentNo: $("#studentNo").val(),
-		studentName: $("#studentName").val()
+		fields:JSON.stringify({"studentNo": $("#studentNo").val(),"studentName": $("#studentName").val()}),
+		
 		};
 	$('#student').datagrid("options").url=ctx+"/student/searchStudent.action?ids=" + Math.random();
 	$('#student').datagrid("load");

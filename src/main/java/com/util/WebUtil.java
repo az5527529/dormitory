@@ -4,9 +4,12 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.lang.reflect.Method;
 import java.util.Enumeration;
+import java.util.Iterator;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import net.sf.json.JSONObject;
 
 import com.entity.UserInfo;
 
@@ -19,16 +22,20 @@ public class WebUtil {
 	}
 	public static String getWhereCondition(HttpServletRequest request){
 		StringBuilder condition = new StringBuilder();
-		Enumeration enu=request.getParameterNames();
-		while(enu.hasMoreElements()){
-			String property = (String) enu.nextElement();
-			if(!property.equals("ids")&&!property.equals("rows")&&!property.equals("page")){
-				String value = request.getParameter(property);
-				if(!StringUtil.isEmptyString(value)){
-					condition.append(" and "+property+"='"+value+"'");
-				}
-			}
-			
+		String fields = request.getParameter("fields");
+		if(!StringUtil.isEmptyString(fields)){
+			JSONObject json = JSONObject.fromObject(fields);
+			 Iterator keyIter = json.keys();
+			    String key;
+			    String value;
+			    while( keyIter.hasNext())
+			    {
+			        key = (String)keyIter.next();
+			        value = (String) json.get(key);
+			        if(!StringUtil.isEmptyString(value)){
+			        	condition.append(" and "+key+"='"+value+"'");
+			        }
+			    } 
 		}
 		
 		return condition.toString();

@@ -1,6 +1,6 @@
 package com.entity;
 
-// Generated 2016-3-23 17:31:53 by Hibernate Tools 3.2.2.GA
+// Generated 2016-3-28 17:16:14 by Hibernate Tools 3.2.2.GA
 
 import java.math.BigDecimal;
 
@@ -33,12 +33,13 @@ public class SbRoom implements java.io.Serializable {
 	private int bedLeft;
 	private String createdByUser;
 	private String updatedByUser;
+	private byte isFull;
 
 	public SbRoom() {
 	}
 
 	public SbRoom(int roomNo, int buildingNo, BigDecimal area, int bedNum,
-			int bedLeft, String createdByUser, String updatedByUser) {
+			int bedLeft, String createdByUser, String updatedByUser, byte isFull) {
 		this.roomNo = roomNo;
 		this.buildingNo = buildingNo;
 		this.area = area;
@@ -46,6 +47,7 @@ public class SbRoom implements java.io.Serializable {
 		this.bedLeft = bedLeft;
 		this.createdByUser = createdByUser;
 		this.updatedByUser = updatedByUser;
+		this.isFull = isFull;
 	}
 
 	@Id
@@ -120,6 +122,15 @@ public class SbRoom implements java.io.Serializable {
 
 	public void setUpdatedByUser(String updatedByUser) {
 		this.updatedByUser = updatedByUser;
+	}
+
+	@Column(name = "is_full", nullable = true)
+	public byte getIsFull() {
+		return this.isFull;
+	}
+
+	public void setIsFull(byte isFull) {
+		this.isFull = isFull;
 	}
 
 }

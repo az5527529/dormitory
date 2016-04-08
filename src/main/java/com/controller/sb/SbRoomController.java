@@ -1,7 +1,6 @@
-package com.controller.student;
+package com.controller.sb;
 
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -14,19 +13,20 @@ import org.apache.commons.beanutils.BeanUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
-import com.entity.Student;
-import com.service.student.StudentService;
+import com.entity.SbRoom;
+import com.service.sb.SbRoomService;
 import com.util.StringUtil;
 import com.util.WebUtil;
 
 @Controller
-@RequestMapping("/student")
-public class StudentController {
+@RequestMapping("/sbRoom")
+public class SbRoomController {
 	@Resource
-	private StudentService studentService;
-	@RequestMapping(value = "/searchStudent", method = RequestMethod.POST)
-	public void searchStudent(HttpServletRequest request,
+	private SbRoomService sbRoomService;
+	@RequestMapping(value = "/searchSbRoom", method = RequestMethod.POST)
+	public void searchSbRoom(HttpServletRequest request,
 			HttpServletResponse response) throws IOException {
 		String whereCondition = WebUtil.getWhereCondition(request);
 		String rowsStr = request.getParameter("rows");
@@ -39,9 +39,9 @@ public class StudentController {
 		}
 		String sort = request.getParameter("sort");
 		String order = request.getParameter("order");
-		List<Student> list = studentService.query(whereCondition,(page-1)*pageSize,pageSize,sort,order);
+		List<SbRoom> list = sbRoomService.query(whereCondition,(page-1)*pageSize,pageSize,sort,order);
 		JSONObject o = new JSONObject();
-		o.put("total", studentService.getCount(whereCondition));
+		o.put("total", sbRoomService.getCount(whereCondition));
 		o.put("rows", list);
 		WebUtil.outputPage(request, response, o.toString());
 	}
@@ -50,23 +50,23 @@ public class StudentController {
 	public void saveOrUpdate(HttpServletRequest request,
 			HttpServletResponse response) throws IOException {
 		JSONObject o = new JSONObject();
-		Student student ;
-		String id = request.getParameter("studentId");
+		SbRoom sbRoom ;
+		String id = request.getParameter("sbRoomId");
 		if(id!=null&&!id.equals("")){
-			student = studentService.loadById(Long.parseLong(id));
+			sbRoom = sbRoomService.loadById(Long.parseLong(id));
 		}else{
-			student = new Student();
+			sbRoom = new SbRoom();
 		}
 		try {
-			BeanUtils.populate(student, request.getParameterMap());
+			BeanUtils.populate(sbRoom, request.getParameterMap());
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			o.put("errorMessage", e.getMessage());
 		} 
-		WebUtil.beforeSaveOrUpdate(request, student,student.getStudentId()>0?true:false);
-		student = studentService.saveOrUpdate(student);
-		o = JSONObject.fromObject(student);
+		WebUtil.beforeSaveOrUpdate(request, sbRoom,sbRoom.getSbRoomId()>0?true:false);
+		sbRoom = sbRoomService.saveOrUpdate(sbRoom);
+		o = JSONObject.fromObject(sbRoom);
 		WebUtil.outputPage(request, response, o.toString());
 	}
 	
@@ -74,12 +74,12 @@ public class StudentController {
 	public void searchById(HttpServletRequest request,
 			HttpServletResponse response) throws IOException {
 		String id = request.getParameter("id");
-		Student student = studentService.loadById(Long.parseLong(id));
+		SbRoom sbRoom = sbRoomService.loadById(Long.parseLong(id));
 		JSONObject o = new JSONObject();
-		if(student==null){
-			o.put("errorMsg", "该学生不存在");
+		if(sbRoom==null){
+			o.put("errorMsg", "该房间不存在");
 		}else{
-			o = JSONObject.fromObject(student);
+			o = JSONObject.fromObject(sbRoom);
 		}
 		WebUtil.outputPage(request, response, o.toString());
 	}
@@ -88,7 +88,7 @@ public class StudentController {
 	public void deleteById(HttpServletRequest request,
 			HttpServletResponse response) throws IOException {
 		String id = request.getParameter("id");
-		int n = studentService.deleteById(Long.parseLong(id));
+		int n = sbRoomService.deleteById(Long.parseLong(id));
 		JSONObject o = new JSONObject();
 		if(n>0){
 			o.put("msg", "删除成功");
