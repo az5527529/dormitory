@@ -6,12 +6,12 @@ import java.util.List;
 public class UserInfo {
 	
 
-	private String userCode;
-	private String userName;
-	private int buildingNo;
-	private int roleType;
-	private List<SysMenuItem> items = new ArrayList<SysMenuItem>();
-	private String errorMsg;
+	private String userCode;//用户编码
+	private String userName;//用户名
+	private int buildingNo;//所属楼
+	private int roleType;//角色类型 1：超管；2：宿管；3：学生
+	private List<SysMenuItem> items = new ArrayList<SysMenuItem>();//用户所能看到的菜单
+	private String errorMsg;//登陆错误时返回的错误信息
 	public String getUserCode() {
 		return userCode;
 	}

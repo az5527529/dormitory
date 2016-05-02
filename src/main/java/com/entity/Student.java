@@ -1,12 +1,13 @@
 package com.entity;
 
-// Generated 2016-3-23 17:31:53 by Hibernate Tools 3.2.2.GA
-
-import static javax.persistence.GenerationType.IDENTITY;
+// Generated 2016-4-8 17:10:21 by Hibernate Tools 3.2.2.GA
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+
+import static javax.persistence.GenerationType.IDENTITY;
+
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -37,6 +38,7 @@ public class Student implements java.io.Serializable {
 	private String teacher;
 	private String createdByUser;
 	private String updatedByUser;
+	private byte isCheckIn;
 
 	public Student() {
 	}
@@ -44,7 +46,8 @@ public class Student implements java.io.Serializable {
 	public Student(String studentName, long studentNo, int buildingNo,
 			int roomNo, String idCard, String telephone, byte sex,
 			String major, String grade, String studentClass, byte isGraduated,
-			String teacher, String createdByUser, String updatedByUser) {
+			String teacher, String createdByUser, String updatedByUser,
+			byte isCheckIn) {
 		this.studentName = studentName;
 		this.studentNo = studentNo;
 		this.buildingNo = buildingNo;
@@ -59,6 +62,7 @@ public class Student implements java.io.Serializable {
 		this.teacher = teacher;
 		this.createdByUser = createdByUser;
 		this.updatedByUser = updatedByUser;
+		this.isCheckIn = isCheckIn;
 	}
 
 	@Id
@@ -196,6 +200,15 @@ public class Student implements java.io.Serializable {
 
 	public void setUpdatedByUser(String updatedByUser) {
 		this.updatedByUser = updatedByUser;
+	}
+
+	@Column(name = "is_check_in", nullable = true)
+	public byte getIsCheckIn() {
+		return this.isCheckIn;
+	}
+
+	public void setIsCheckIn(byte isCheckIn) {
+		this.isCheckIn = isCheckIn;
 	}
 
 }

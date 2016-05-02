@@ -14,7 +14,8 @@ $(function(){
 			success : function(data) {
 				var errorMsg = data['errorMsg'];
 				if (undefined!=errorMsg&&""!=errorMsg) {
-					alert(errorMsg);
+					newAlert(errorMsg);
+					//alert(errorMsg);
 				}else{
 					$('#ff').form("load",data);
 				}
@@ -34,9 +35,11 @@ function submit(){
 	    success:function(data){    
 	    	var obj = JSON.parse(data);
 	        if(obj.errorMessage){
-	        	alert(data.errorMessage);
+	        	newAlert(data.errorMessage);
+	
+	        	//alert(data.errorMessage);
 	        }else{
-	        	alert("保存成功");
+	        	newShow("保存成功");
 	        	var $input = $("#ff :input[name]");
 	        	for(i=0;i<$input.size();i++){
 	        		name = $input[i].name;

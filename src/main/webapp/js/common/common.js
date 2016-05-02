@@ -1,10 +1,13 @@
 /**
  * 
  */
+/**
+ * 新开tab页方法
+ */
  function addTab(title,url){  
               
 	 		var jq = top.jQuery;  
-            if(jq("#tt").tabs("exists",title)){
+            if(jq("#tt").tabs("exists",title)){//存在则选中，不存在则新增
             	jq("#tt").tabs("select",title);
     		}else{
     			jq("#tt").tabs("add",{
@@ -18,7 +21,31 @@
               
         }
  
+ /**
+  * 关闭tab页
+  * @param title
+  */
  function closeTab(title){
 	 var jq = top.jQuery;  
 	 jq("#tt").tabs("close",title);
+ }
+ //警告
+ function newAlert(msg){
+	 $.messager.alert('警告',msg);
+ }
+ 
+ //提示
+ function newShow(msg){
+	 $.messager.show({
+ 		title:'提示',
+ 		msg:msg,
+ 		timeout:1000,
+ 		showType:'slide',
+ 		style:{
+ 			right:'',
+ 			top:document.body.scrollTop+document.documentElement.scrollTop,
+ 			bottom:''
+ 		}
+
+ 	});
  }

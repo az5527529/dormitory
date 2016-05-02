@@ -104,8 +104,11 @@ public class SbBuildingController {
 			HttpServletResponse response) throws IOException {
 		String whereCondition = WebUtil.getWhereCondition(request);
 		List<SbBuilding> list = sbBuildingService.query(whereCondition,0,10000,"buildingNo","asc");
-		SbBuilding sbBuilding = new SbBuilding();
-		JSONArray o = JSONArray.fromObject(list);
+		JSONArray o = new JSONArray();
+		JSONObject object = new JSONObject();
+		object.put("buildingNo", null);
+		o.add(object);
+		o.addAll(list);
 		WebUtil.outputPage(request, response, o.toString());
 	}
 }

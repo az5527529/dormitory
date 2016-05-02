@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 import org.apache.commons.beanutils.BeanUtils;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.entity.SbBuilding;
 import com.entity.SbRoom;
 import com.service.sb.SbRoomService;
 import com.util.StringUtil;
@@ -28,9 +30,9 @@ public class SbRoomController {
 	@RequestMapping(value = "/searchSbRoom", method = RequestMethod.POST)
 	public void searchSbRoom(HttpServletRequest request,
 			HttpServletResponse response) throws IOException {
-		String whereCondition = WebUtil.getWhereCondition(request);
-		String rowsStr = request.getParameter("rows");
-		String pageStr=request.getParameter("page");
+		String whereCondition = WebUtil.getWhereCondition(request);//获取查询条件
+		String rowsStr = request.getParameter("rows");//每页显示行数
+		String pageStr=request.getParameter("page");//页码
 		int pageSize = 10;
 		int page = 1;
 		if(!StringUtil.isEmptyString(rowsStr)&&!StringUtil.isEmptyString(pageStr)){
@@ -39,7 +41,7 @@ public class SbRoomController {
 		}
 		String sort = request.getParameter("sort");
 		String order = request.getParameter("order");
-		List<SbRoom> list = sbRoomService.query(whereCondition,(page-1)*pageSize,pageSize,sort,order);
+		List<SbRoom> list = sbRoomService.query(whereCondition,(page-1)*pageSize,pageSize,sort,order);//查询结果
 		JSONObject o = new JSONObject();
 		o.put("total", sbRoomService.getCount(whereCondition));
 		o.put("rows", list);
@@ -52,20 +54,20 @@ public class SbRoomController {
 		JSONObject o = new JSONObject();
 		SbRoom sbRoom ;
 		String id = request.getParameter("sbRoomId");
-		if(id!=null&&!id.equals("")){
+		if(id!=null&&!id.equals("")){//编辑时根据id获取对象
 			sbRoom = sbRoomService.loadById(Long.parseLong(id));
-		}else{
+		}else{//新增时则new一个新对象
 			sbRoom = new SbRoom();
 		}
 		try {
-			BeanUtils.populate(sbRoom, request.getParameterMap());
+			BeanUtils.populate(sbRoom, request.getParameterMap());//将修改过的值赋值到对象里
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			o.put("errorMessage", e.getMessage());
 		} 
-		WebUtil.beforeSaveOrUpdate(request, sbRoom,sbRoom.getSbRoomId()>0?true:false);
-		sbRoom = sbRoomService.saveOrUpdate(sbRoom);
+		WebUtil.beforeSaveOrUpdate(request, sbRoom,sbRoom.getSbRoomId()>0?true:false);//新增更新时设置创建人或修改人
+		sbRoom = sbRoomService.saveOrUpdate(sbRoom);//保存
 		o = JSONObject.fromObject(sbRoom);
 		WebUtil.outputPage(request, response, o.toString());
 	}
@@ -96,6 +98,19 @@ public class SbRoomController {
 		}else{
 			o.put("msg", "删除失败");
 		}
+		WebUtil.outputPage(request, response, o.toString());
+	}
+	
+	@RequestMapping(value = "/combobox", method = RequestMethod.POST)
+	public void combobox(HttpServletRequest request,
+			HttpServletResponse response) throws IOException {
+		String whereCondition = WebUtil.getWhereCondition(request);
+		List<SbRoom> list = sbRoomService.query(whereCondition,0,10000,"buildingNo","asc");
+		JSONArray o = new JSONArray();
+		JSONObject object = new JSONObject();
+		object.put("roomNo", null);//使下拉框拥有空值选项
+		o.add(object);
+		o.addAll(list);
 		WebUtil.outputPage(request, response, o.toString());
 	}
 }

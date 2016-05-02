@@ -52,9 +52,9 @@ function saveBuilding(){
 	    success:function(data){    
 	    	var obj = JSON.parse(data);
 	        if(obj.errorMessage){
-	        	alert(data.errorMessage);
+	        	newAlert(data.errorMessage);
 	        }else{
-	        	alert("保存成功");
+	        	newShow("保存成功");
 	        	cancel();
 	        	$('#building').datagrid("reload");
 	        }
@@ -86,7 +86,7 @@ function newBuilding(){
 function edit(){
 	var row = $('#building').datagrid("getSelected");
 	if(row==null){
-		alert("请选择要编辑的行");
+		newAlert("请选择要编辑的行");
 		return false;
 	}
 	$("#editDiv").dialog("open");
@@ -95,23 +95,25 @@ function edit(){
 function deleteStudent(){
 	var row = $('#building').datagrid("getSelected");
 	if(row==null){
-		alert("请选择要删除的行");
+		newAlert("请选择要删除的行");
 		return false;
 	}
-	if(window.confirm("你确定要删除吗?")){
-		$.ajax({
-			type : "post",
-			dataType : 'json',
-			url : ctx+"/sbBuilding/deleteById.action?ids=" + Math.random(),
-			data : {
-				id : row.sbBuildingId,
-			},
-			success : function(data) {
-				alert(data.msg);
-				$('#building').datagrid("reload");
-			},
-			async : true
-		});
-	}
+	$.messager.confirm('确认对话框', '你确定要删除吗?', function(r){
+		if (r){
+			$.ajax({
+				type : "post",
+				dataType : 'json',
+				url : ctx+"/sbBuilding/deleteById.action?ids=" + Math.random(),
+				data : {
+					id : row.sbBuildingId,
+				},
+				success : function(data) {
+					newShow(data.msg);
+					$('#building').datagrid("reload");
+				},
+				async : true
+			});
+		}
+	});
 	
 }
