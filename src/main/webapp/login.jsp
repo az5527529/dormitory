@@ -52,7 +52,7 @@
 	<div id="form">
 	<form id="login" method="post">
 			<ul>
-				<li>
+				<li style="padding-left:0px">
 				<label for="userCode">用户名:</label> <input class="easyui-validatebox"
 				type="text" name="userCode" id="userCode" data-options="required:true,missingMessage:'请输入您的用户名'" />
 				</li>
@@ -62,10 +62,14 @@
 				type="password" name="password" id="password" data-options="required:true,missingMessage:'请输入您的密码'" />
 				</li>
 	
-				<li style="padding-left:68px;padding-top:10px">
+				<li style="padding-left:0px;padding-top:10px">
 				<label for="randomCode">验证码:</label> <input class="easyui-validatebox"
 				type="text" id="checkCode" name="checkCode" data-options="required:true,missingMessage:'请输入验证码'" />
-				<img src="${ctx}/RandomCodeServlet" border="0" id="random" onclick="refreshImg(this);" style="cursor:pointer;vertical-align:middle;" />
+				</li>
+				
+				<li style="padding-left:0px;padding-top:10px">
+				<img src="${ctx}/RandomCodeServlet" border="0" id="random" onclick="refreshImg(this);" 
+				style="cursor:pointer;vertical-align:middle;" />
 				</li>
 				
 				<li><span id="notice"></span></li>
